@@ -40,8 +40,8 @@ public class Order implements Serializable {
 	@NotNull
 	private Client client;
 
-	@ElementCollection(fetch = FetchType.EAGER, targetClass = ItemOrder.class)
-	@CollectionTable(name = "item_order", joinColumns = @JoinColumn(name = "id_order"))
+	//@ElementCollection(fetch = FetchType.EAGER, targetClass = ItemOrder.class)
+	//@CollectionTable(name = "item_order", joinColumns = @JoinColumn(name = "id_order"))
 	private Set<ItemOrder> itens = new HashSet<ItemOrder>();
 
 	@Column(name = "total")
