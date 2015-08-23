@@ -6,35 +6,37 @@
 	xmlns:p="http://primefaces.org/ui">
 <ui:composition template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="body">
+		<f:metadata>
+			<f:viewParam name="id" value="#{productController.id}" />
+			<f:event listener="#{productController.load}" type="preRenderView" />
+		</f:metadata>
 		<h2>#{msg['lista-de-produtos']}</h2>
 		<h:form id="formProdutos">
 			<p:growl autoUpdate="true" />
-			<p:dataGrid id="listaProdutos" value="#{productController.products}"
-				var="product" styleClass="lista-conteudo" columns="1">
 
 				<div class="col-sm-4 col-lg-4 col-md-4">
 					<div class="thumbnail">
 						<!-- p:graphicImage value="#{imageController.image}"
-							rendered="${imageController.image != null}">
-							<f:param name="name" value="#{product.imageName}" />
-						</p:graphicImage-->
+								rendered="${imageController.image != null}">
+								<f:param name="name" value="#{product.imageName}" />
+							</p:graphicImage-->
 						<img src="http://placehold.it/320x150" alt="" />
 						<div class="caption">
 							<h4 class="pull-right">
-								<h:outputText value="#{produto.prize}">
+								<h:outputText value="#{productController.product.prize}">
 									<f:convertNumber currencyCode="BRL" type="currency" />
 								</h:outputText>
 							</h4>
 							<h4>
-								<a href="#"><h:outputText value="#{product.title}" /></a>
+								<a href="#"><h:outputText value="#{productController.product.title}" /></a>
 							</h4>
 							<p>
-								<h:outputText value="#{product.description}" escape="false" />
+								<h:outputText value="#{productController.product.description}" escape="false" />
 								<br />
-								<p:button title="#{msg['label.detais']}" outcome="product-details"
-									icon="ui-icon-pencil" id="btnUpdate">
-									<f:param name="id" value="#{product.id}" />
-								</p:button>
+								<p:commandButton icon="ui-icon-cart"
+									value="#{msg['adicionar-produto']}"
+									action="#{shopCartController.adicionarItem(productController.product)}"
+									process="formProdutos" style="margin-top: 15px;" />
 							</p>
 						</div>
 						<div class="ratings">
@@ -49,7 +51,7 @@
 						</div>
 					</div>
 				</div>
-			</p:dataGrid>
+
 		</h:form>
 	</ui:define>
 </ui:composition>

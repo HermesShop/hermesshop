@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/WEB-INF/admin-templates/default.xhtml">
+
+	<ui:define name="body">
+		<div class="btn-controls">
+			<div class="btn-box-row row-fluid">
+				<a href="#" class="btn-box big span4"><i class="fa fa-bar-chart"></i>
+					<b>65%</b>
+					<p class="text-muted">Growth</p> </a><a href="#"
+					class="btn-box big span4"><i class="fa fa-user-plus"></i><b>15</b>
+					<p class="text-muted">New Users</p> </a><a href="#"
+					class="btn-box big span4"><i class="fa fa-line-chart"></i> <b>15,152</b>
+					<p class="text-muted">Profit</p> </a>
+			</div>
+			<div class="btn-box-row row-fluid">
+				<div class="span8">
+					<div class="row-fluid">
+						<div class="span12">
+							<a href="#" class="btn-box small span4"><i
+								class="fa fa-envelope-square"></i><b>Messages</b> </a><a href="#"
+								class="btn-box small span4"><i class="fa fa-users"></i><b>Clients</b>
+							</a><a href="#" class="btn-box small span4"><i
+								class="fa fa-exchange"></i><b>Expenses</b> </a>
+						</div>
+					</div>
+					<div class="row-fluid">
+						<div class="span12">
+							<a href="#" class="btn-box small span4"><i class="fa fa-cart-arrow-down"></i><b>Total
+									Sales</b> </a><a href="#" class="btn-box small span4"><i
+								class="fa fa-bullhorn"></i><b>Social Feed</b> </a><a href="#"
+								class="btn-box small span4"><i class="fa fa-sort-desc"></i>
+								<b>Bounce Rate</b> </a>
+						</div>
+					</div>
+				</div>
+				<ul class="widget widget-usage unstyled span4">
+					<li>
+						<p>
+							<strong>Windows 8</strong> <span class="pull-right small muted">78%</span>
+						</p>
+						<div class="progress tight">
+							<div class="bar" style="width: 78%;"></div>
+						</div>
+					</li>
+					<li>
+						<p>
+							<strong>Mac</strong> <span class="pull-right small muted">56%</span>
+						</p>
+						<div class="progress tight">
+							<div class="bar bar-success" style="width: 56%;"></div>
+						</div>
+					</li>
+					<li>
+						<p>
+							<strong>Linux</strong> <span class="pull-right small muted">44%</span>
+						</p>
+						<div class="progress tight">
+							<div class="bar bar-warning" style="width: 44%;"></div>
+						</div>
+					</li>
+					<li>
+						<p>
+							<strong>iPhone</strong> <span class="pull-right small muted">67%</span>
+						</p>
+						<div class="progress tight">
+							<div class="bar bar-danger" style="width: 67%;"></div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!--/#btn-controls-->
+	</ui:define>
+</ui:composition>
+</html>

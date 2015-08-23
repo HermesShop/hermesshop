@@ -7,9 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CollectionTable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -17,15 +16,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 @Entity
-@Table(name = "order")
+@Table(name = "product_order")
 public class Order implements Serializable {
 	private static final long serialVersionUID = 813440582621834761L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -35,13 +39,13 @@ public class Order implements Serializable {
 	@NotNull
 	private Date date;
 
+	@Fetch(FetchMode.JOIN)
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_client")
 	@NotNull
 	private Client client;
 
-	//@ElementCollection(fetch = FetchType.EAGER, targetClass = ItemOrder.class)
-	//@CollectionTable(name = "item_order", joinColumns = @JoinColumn(name = "id_order"))
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "order", cascade = CascadeType.ALL)
 	private Set<ItemOrder> itens = new HashSet<ItemOrder>();
 
 	@Column(name = "total")

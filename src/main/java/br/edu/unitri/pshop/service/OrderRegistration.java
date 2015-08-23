@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import br.edu.unitri.pshop.data.ClientRepository;
 import br.edu.unitri.pshop.exception.ClientNotFoundException;
 import br.edu.unitri.pshop.model.Client;
+import br.edu.unitri.pshop.model.ItemOrder;
 import br.edu.unitri.pshop.model.Order;
 
 @Stateless
@@ -34,14 +35,33 @@ public class OrderRegistration {
 		orderEventSrc.fire(order);
 	}
 
-	public Order addOrder(Order shopcarOrder, String email, String password) throws ClientNotFoundException {
-		Client cliente = clientRepository.findByEmailAndPassword(email, password);
+	public Order addOrder(Order shopcarOrder, String email, String password)
+			throws ClientNotFoundException {
+		Client cliente = clientRepository.findByEmailAndPassword(email,
+				password);
 		if (cliente == null) {
 			throw new ClientNotFoundException("Cliente não encontrado");
 		}
+		
+		
+		for (ItemOrder item : shopcarOrder.getItens()) {
+			System.out.println("_" + item.toString());
+		}
 		shopcarOrder.setDate(new Date(0));
-		//shopcarOrder.setClient(cliente);
-		em.persist(shopcarOrder);
+		shopcarOrder.setClient(cliente);
+		
+		if (shopcarOrder.getId() != null) {
+			em.merge(shopcarOrder);
+		} else {
+			em.persist(shopcarOrder);
+			
+			for (ItemOrder item : shopcarOrder.getItens()) {
+				Order order = new Order();
+				order.setId(shopcarOrder.getId());
+				item.setOrder(order);
+			}
+		}
+
 		return shopcarOrder;
 	}
 }

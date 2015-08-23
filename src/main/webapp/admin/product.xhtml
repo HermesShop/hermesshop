@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/WEB-INF/admin-templates/default.xhtml">
+
+	<ui:define name="body">
+		<p:growl id="messages" showDetail="true" autoUpdate="true"
+			showSummary="false" />
+		<h:form id="formListAboute">
+			<p:panel header="#{msg['label.abouts']}" styleClass="panel-listagem"
+				id="panelListagemAboute">
+				<p:dataTable id="tabeAboutes" value="#{adminController.orders}"
+					var="order" emptyMessage="#{msg['label.list.nofindrecord']}"
+					paginator="true" rows="10" paginatorPosition="bottom"
+					styleClass="table-listagem" rowIndexVar="var"
+					firstPageLinkLabel="Primeira" previousPageLinkLabel="Anterior"
+					nextPageLinkLabel="Proxima" lastPageLinkLabel="ultima">
+					<p:column sortBy="#{order.id}" style="width:50px;">
+						<f:facet name="header">
+							<h:outputText value="#{msg['label.id']}" />
+						</f:facet>
+						<h:outputText value="#{order.id}" />
+					</p:column>
+					<p:column sortBy="#{order.client.name}" filterBy="#{order.client.name}"
+						filterEvent="enter" style="width:285px;">
+						<f:facet name="header">
+							<h:outputText value="#{msg['label.order.client.name']}" escape="false" />
+						</f:facet>
+						<h:outputText value="#{order.client.name}" />
+					</p:column>
+					<p:column sortBy="#{order.date}" filterBy="#{order.date}"
+						filterEvent="enter" style="width:285px;">
+						<f:facet name="header">
+							<h:outputText value="#{msg['label.order.date']}" escape="false" />
+						</f:facet>
+						<h:outputText value="#{order.date}" />
+					</p:column>
+					<p:column sortBy="#{order.totalValue}" filterBy="#{order.totalValue}"
+						filterEvent="enter" style="width:285px;">
+						<f:facet name="header">
+							<h:outputText value="#{msg['label.order.totalValue']}" escape="false" />
+						</f:facet>
+						<h:outputText value="#{order.totalValue}" />
+					</p:column>
+					<p:column style="text-align: center;width:50px;">
+						<f:facet name="header">
+							<h:outputText value="#{msg['label.update']}" />
+						</f:facet>
+					</p:column>
+					<p:column style="text-align: center;width:50px;">
+						<f:facet name="header">
+							<h:outputText value="#{msg['label.remove']}" />
+						</f:facet>
+					</p:column>
+				</p:dataTable>
+				<p:spacer style="width:100%; height: 10px;" />
+			</p:panel>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

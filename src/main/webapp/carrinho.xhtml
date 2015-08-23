@@ -3,7 +3,7 @@
   xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
   xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 <ui:composition template="/WEB-INF/templates/default.xhtml">
-  <ui:define name="content">
+  <ui:define name="body">
     <h2>#{msg['carrinho-de-compras']}</h2>    
     <h:form id="formCarrinhoDeCompras">
       <p:messages autoUpdate="true" />
@@ -33,14 +33,15 @@
             </f:facet>          
         </p:column>
         <p:column headerText="#{msg['remover']}">
-          <p:commandButton icon="ui-icon-close" oncomplete="dialogConfirmaRemocaoProduto.show()" process="@this">
-            <f:setPropertyActionListener value="#{item.product}" target="#{shopCartController.removerItem()}" />
+          <p:commandButton icon="ui-icon-close">
+            <f:setPropertyActionListener value="#{item.product}" target="#{shopCartController.removerItem}" />
           </p:commandButton>
         </p:column>  
       </p:dataTable>
-      <h:link outcome="index" styleClass="link" value="#{msg['continuar-comprando']}" />
+      
+      <h:link outcome="index" styleClass="link" value="continuar-comprando" />
         
-      <p:panel id="panelClienteCadastrado" header="#{msg['ja-sou-cliente']}" styleClass="panel-conteudo"
+      <p:panel id="panelClienteCadastrado" header="'ja-sou-cliente" styleClass="panel-conteudo"
         toggleable="true" rendered="#{shopCartController.temItens()}">
         <h:panelGrid columns="2">
           <h:outputLabel value="#{msg['email']}" for="txtCadastradoEmail" />
@@ -51,27 +52,27 @@
             required="true" label="#{msg['senha']}"/>
         </h:panelGrid>
         <p:commandButton action="#{shopCartController.fecharPedidoUsuarioExistente}"
-          value="#{msg['finalizar-compra']}" process="panelClienteCadastrado" 
+          value="finalizar-compra" process="panelClienteCadastrado" 
           update="panelClienteCadastrado"/>          
       </p:panel>
       
-      <p:panel id="panelNovoCliente" header="#{msg['sou-novo-cliente']}" styleClass="panel-conteudo"
+      <p:panel id="panelNovoCliente" header="'sou-novo-cliente" styleClass="panel-conteudo"
         collapsed="true" toggleable="true" rendered="#{shopCartController.temItens()}">
         <h:panelGrid columns="2">
-          <h:outputLabel value="#{msg['nome']}" for="txtNovoNome" />
+          <h:outputLabel value="nome" for="txtNovoNome" />
           <p:inputText value="#{shopCartController.client.name}" id="txtNovoNome" size="30" maxlength="40" 
-            required="true" label="#{msg['nome']}"/>
-          <h:outputLabel value="#{msg['email']}" for="txtNovoEmail" />
+            required="true" label="nome"/>
+          <h:outputLabel value="email" for="txtNovoEmail" />
           <p:inputText value="#{shopCartController.client.email}" id="txtNovoEmail" size="25" maxlength="40" 
-            required="true" label="#{msg['email']}" />
-          <h:outputLabel value="#{msg['senha']}" for="txtNovoSenha" />
+            required="true" label="email}" />
+          <h:outputLabel value="senha" for="txtNovoSenha" />
           <p:password value="#{shopCartController.client.password}" id="txtNovoSenha" size="8" maxlength="8" 
-            required="true" label="#{msg['senha']}">
+            required="true" label="#{senha}">
              <f:validateLength minimum="6" maximum="8" />
           </p:password>        
         </h:panelGrid>
         <p:commandButton action="#{shopCartController.fecharPedidoNovoUsuario}"
-          value="#{msg['cadastrar-e-finalizar-compra']}" process="panelNovoCliente" 
+          value="cadastrar-e-finalizar-compra" process="panelNovoCliente" 
           update="panelNovoCliente"/>        
       </p:panel>
       

@@ -8,7 +8,6 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import br.edu.unitri.pshop.model.Client;
-import br.edu.unitri.pshop.model.Member;
 
 @Stateless
 public class ClientRegistration {
@@ -19,17 +18,17 @@ public class ClientRegistration {
 	private EntityManager em;
 
 	@Inject
-	private Event<Member> memberEventSrc;
+	private Event<Client> clientEventSrc;
 
-	public void register(Member member) throws Exception {
-		log.info("Registering " + member.getName());
-		em.persist(member);
-		memberEventSrc.fire(member);
+	public void register(Client client) throws Exception {
+		log.info("Registering " + client.getName());
+		em.persist(client);
+		clientEventSrc.fire(client);
 	}
 
-	public Client add(Client client) {
-		// TODO Auto-generated method stub
-		return null;
+	public Client add(Client client) throws Exception {
+		register(client);
+		return client;
 	}
 
 }

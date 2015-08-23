@@ -40,18 +40,18 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import br.edu.unitri.pshop.data.MemberRepository;
-import br.edu.unitri.pshop.model.Member;
-import br.edu.unitri.pshop.service.MemberRegistration;
+import br.edu.unitri.pshop.data.ClientRepository;
+import br.edu.unitri.pshop.model.Client;
+import br.edu.unitri.pshop.service.ClientRegistration;
 
 /**
  * JAX-RS Example
  * <p/>
- * This class produces a RESTful service to read/write the contents of the members table.
+ * This class produces a RESTful service to read/write the contents of the clients table.
  */
-@Path("/members")
+@Path("/clients")
 @RequestScoped
-public class MemberResourceRESTService {
+public class ClientResource {
 
     @Inject
     private Logger log;
@@ -60,44 +60,44 @@ public class MemberResourceRESTService {
     private Validator validator;
 
     @Inject
-    private MemberRepository repository;
+    private ClientRepository repository;
 
     @Inject
-    MemberRegistration registration;
+    ClientRegistration registration;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Member> listAllMembers() {
-        return repository.findAllOrderedByName();
+    public List<Client> listAllClients() {
+        return repository.findAllOrderedByDescription();
     }
 
     @GET
     @Path("/{id:[0-9][0-9]*}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Member lookupMemberById(@PathParam("id") long id) {
-        Member member = repository.findById(id);
-        if (member == null) {
+    public Client lookupClientById(@PathParam("id") long id) {
+        Client client = repository.findById(id);
+        if (client == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
-        return member;
+        return client;
     }
 
     /**
-     * Creates a new member from the values provided. Performs validation, and will return a JAX-RS response with either 200 ok,
+     * Creates a new client from the values provided. Performs validation, and will return a JAX-RS response with either 200 ok,
      * or with a map of fields, and related errors.
      */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createMember(Member member) {
+    public Response createClient(Client client) {
 
         Response.ResponseBuilder builder = null;
 
         try {
-            // Validates member using bean validation
-            validateMember(member);
+            // Validates client using bean validation
+            validateClient(client);
 
-            registration.register(member);
+            registration.register(client);
 
             // Create an "ok" response
             builder = Response.ok();
@@ -121,30 +121,26 @@ public class MemberResourceRESTService {
 
     /**
      * <p>
-     * Validates the given Member variable and throws validation exceptions based on the type of error. If the error is standard
+     * Validates the given Client variable and throws validation exceptions based on the type of error. If the error is standard
      * bean validation errors then it will throw a ConstraintValidationException with the set of the constraints violated.
      * </p>
      * <p>
-     * If the error is caused because an existing member with the same email is registered it throws a regular validation
+     * If the error is caused because an existing client with the same email is registered it throws a regular validation
      * exception so that it can be interpreted separately.
      * </p>
      * 
-     * @param member Member to be validated
+     * @param client Client to be validated
      * @throws ConstraintViolationException If Bean Validation errors exist
-     * @throws ValidationException If member with the same email already exists
+     * @throws ValidationException If client with the same email already exists
      */
-    private void validateMember(Member member) throws ConstraintViolationException, ValidationException {
+    private void validateClient(Client client) throws ConstraintViolationException, ValidationException {
         // Create a bean validator and check for issues.
-        Set<ConstraintViolation<Member>> violations = validator.validate(member);
+        Set<ConstraintViolation<Client>> violations = validator.validate(client);
 
         if (!violations.isEmpty()) {
             throw new ConstraintViolationException(new HashSet<ConstraintViolation<?>>(violations));
         }
-
-        // Check the uniqueness of the email address
-        if (emailAlreadyExists(member.getEmail())) {
-            throw new ValidationException("Unique Email Violation");
-        }
+      
     }
 
     /**
@@ -164,22 +160,5 @@ public class MemberResourceRESTService {
         }
 
         return Response.status(Response.Status.BAD_REQUEST).entity(responseObj);
-    }
-
-    /**
-     * Checks if a member with the same email address is already registered. This is the only way to easily capture the
-     * "@UniqueConstraint(columnNames = "email")" constraint from the Member class.
-     * 
-     * @param email The email to check
-     * @return True if the email already exists, and false otherwise
-     */
-    public boolean emailAlreadyExists(String email) {
-        Member member = null;
-        try {
-            member = repository.findByEmail(email);
-        } catch (NoResultException e) {
-            // ignore
-        }
-        return member != null;
     }
 }

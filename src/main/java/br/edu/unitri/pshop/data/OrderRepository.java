@@ -16,6 +16,8 @@
  */
 package br.edu.unitri.pshop.data;
 
+import java.util.List;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -23,39 +25,42 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import java.util.List;
-
-import br.edu.unitri.pshop.model.Member;
+import br.edu.unitri.pshop.model.Order;
 
 @ApplicationScoped
-public class MemberRepository {
+public class OrderRepository {
 
     @Inject
     private EntityManager em;
 
-    public Member findById(Long id) {
-        return em.find(Member.class, id);
+    @SuppressWarnings("unchecked")
+	public List<Order> findAll() {
+    	return em.createQuery("from Order").getResultList();
+    }
+    
+    public Order findById(Long id) {
+        return em.find(Order.class, id);
     }
 
-    public Member findByEmail(String email) {
+    public Order findByTitle(String title) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Member> criteria = cb.createQuery(Member.class);
-        Root<Member> member = criteria.from(Member.class);
+        CriteriaQuery<Order> criteria = cb.createQuery(Order.class);
+        Root<Order> order = criteria.from(Order.class);
         // Swap criteria statements if you would like to try out type-safe criteria queries, a new
         // feature in JPA 2.0
-        // criteria.select(member).where(cb.equal(member.get(Member_.name), email));
-        criteria.select(member).where(cb.equal(member.get("email"), email));
+        // criteria.select(order).where(cb.equal(order.get(Order_.name), email));
+        criteria.select(order).where(cb.equal(order.get("title"), title));
         return em.createQuery(criteria).getSingleResult();
     }
 
-    public List<Member> findAllOrderedByName() {
+    public List<Order> findAllOrderedByDescription() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Member> criteria = cb.createQuery(Member.class);
-        Root<Member> member = criteria.from(Member.class);
+        CriteriaQuery<Order> criteria = cb.createQuery(Order.class);
+        Root<Order> order = criteria.from(Order.class);
         // Swap criteria statements if you would like to try out type-safe criteria queries, a new
         // feature in JPA 2.0
-        // criteria.select(member).orderBy(cb.asc(member.get(Member_.name)));
-        criteria.select(member).orderBy(cb.asc(member.get("name")));
+        // criteria.select(order).orderBy(cb.asc(order.get(Order_.name)));
+        criteria.select(order).orderBy(cb.asc(order.get("description")));
         return em.createQuery(criteria).getResultList();
     }
 }

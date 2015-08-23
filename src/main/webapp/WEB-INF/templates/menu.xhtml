@@ -1,0 +1,86 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form id="formMenu" style="display: inline-block">
+		<p:menubar styleClass="menu-sistema">
+			<p:submenu label="#{msg['label.menu.blog']}" icon="ui-icon-document">
+				<p:menuitem value="#{msg['label.menu.PostCategory']}" url="/listPostCategory" />
+				<p:menuitem value="#{msg['label.menu.Posts']}" url="/listPost" />
+				<p:menuitem value="#{msg['label.menu.PostComments']}" url="/listPostComment" />
+				<p:separator />
+				<p:menuitem value="#{msg['label.menu.Pages']}" url="/listPage" />
+			</p:submenu>
+			<p:submenu label="#{msg['label.menu.cashFlow']}" icon="ui-icon-document">
+				<p:menuitem value="#{msg['label.menu.cashFlowCategorys']}" url="/listCashFlowCategory" />
+				<p:menuitem value="#{msg['label.menu.cashFlows']}" url="/listCashFlow" />
+			</p:submenu>
+			<p:submenu label="#{msg['label.menu.sponsor']}" icon="ui-icon-document">
+				<p:menuitem value="#{msg['label.menu.sponsors']}" url="/listSponsor" />
+				<p:menuitem value="#{msg['label.menu.sponsorFollowups']}" url="/listSponsorFollowup" />
+				<p:menuitem value="#{msg['label.menu.sponsorships']}" url="/listSponsorship" />
+			</p:submenu>
+			<p:submenu label="#{msg['label.menu.menu.institutions']}" icon="ui-icon-document">
+				<p:menuitem value="#{msg['label.menu.menu.institutions']}" url="/listInstitution" />
+				<p:menuitem value="#{msg['label.menu.menu.abouts']}" url="/listAbout" />
+				<p:menuitem value="#{msg['label.menu.companys']}" url="/listCompany" />
+				<p:menuitem value="#{msg['label.menu.suppliers']}" url="/listSupplier" />
+				<p:menuitem value="#{msg['label.menu.exhibitors']}" url="/listExhibitors" />
+				<p:menuitem value="#{msg['label.menu.cashFlows']}" url="/listCashFlow" />
+				<p:menuitem value="#{msg['label.menu.cashFlowReports']}" url="/listCashFlow/report.jsf" />
+				</p:submenu>
+			<p:submenu label="#{msg['label.menu.events']}" icon="ui-icon-document">
+				<p:menuitem value="#{msg['label.menu.events']}" url="/listEvent" />
+				<p:menuitem value="#{msg['label.menu.eventProposals']}" url="/listEventProposal" />
+				<p:menuitem value="#{msg['label.menu.eventRooms']}" url="/listEventRoom" />
+				<p:menuitem value="#{msg['label.menu.eventSessions']}" url="/listEventSession" />
+				<p:menuitem value="#{msg['label.menu.eventTracks']}" url="/listEventTrack" />
+				<p:separator/>
+				<p:menuitem value="#{msg['label.menu.eventCashFlows']}" url="/listCashFlow" />
+				<p:menuitem value="#{msg['label.menu.materials']}" url="/listMaterial" />	
+				<p:menuitem value="#{msg['label.menu.budgets']}" url="/listBudget" />		
+				<p:menuitem value="#{msg['label.menu.budgetReports']}" url="/listBudgetReport.jsf" />		
+				<p:menuitem value="#{msg['label.menu.purchaseCosts']}" url="/listPurchaseCost" />
+				<p:menuitem value="#{msg['label.menu.purchaseCostReports']}" url="/listPurchaseCost/report.jsf" />
+				<p:separator/>
+				<p:menuitem value="#{msg['label.menu.speakers']}" url="/listSpeaker" />
+				<p:menuitem value="#{msg['label.menu.speechs']}" url="/listSpeech" />
+				<p:menuitem value="#{msg['label.menu.speechTypes']}" url="/listSpeechType" />
+				<p:separator/>
+				<p:menuitem value="#{msg['label.menu.freePass']}" url="/listFreePass" />
+				<p:menuitem value="#{msg['label.menu.freePassReports']}" url="/listFreePass/report.jsf" />
+				<p:menuitem value="#{msg['label.menu.registrations']}" url="/listRegistration" />
+				<p:menuitem value="#{msg['label.menu.registrationConfirms']}" url="/listRegistrationConfirm" />
+				<p:separator/>
+				<p:menuitem value="#{msg['label.menu.contacts']}" url="/listContact" />
+			</p:submenu>
+			<p:submenu label="#{msg['label.menu.Projects']}" icon="ui-icon-document">
+				<p:menuitem value="#{msg['label.menu.studyGroups']}" url="/listStudyGroup" />
+				<p:menuitem value="#{msg['label.menu.projects']}" url="/listProject" />
+				<p:menuitem value="#{msg['label.menu.products']}" url="/listProduct" />
+				<p:separator/>
+				<p:menuitem value="#{msg['label.menu.taskGroupCategorys']}" url="/listtAskGroupCategory" />
+				<p:menuitem value="#{msg['label.menu.taskGroups']}" url="/listTaskGroup" />
+				<p:menuitem value="#{msg['label.menu.tasks']}" url="/listTask" />		
+				<p:menuitem value="#{msg['label.menu.taskCategorys']}" url="/listTaskCategory" />
+			</p:submenu>
+			<p:submenu label="#{msg['label.menu.managers']}" icon="ui-icon-document">
+				<p:menuitem value="#{msg['label.menu.schedules']}" url="/listSchedule" />
+				<p:separator/>
+				<p:menuitem value="#{msg['label.menu.activityCategorys']}" url="/listActivityCategory" />
+				<p:menuitem value="#{msg['label.menu.activitys']}" url="/listActivity" />
+			</p:submenu>
+			<p:submenu label="#{msg['label.menu.members']}" icon="ui-icon-document">
+				<p:menuitem value="#{msg['label.menu.memberTypes']}" url="/listMemberType" />
+				<p:menuitem value="#{msg['label.menu.members']}" url="/listMember" />
+			</p:submenu>
+			<p:submenu label="#{msg['label.menu.authorizations']}" icon="ui-icon-document">
+				<p:menuitem value="#{msg['label.menu.authorizations']}" url="/listAuthorization" />
+				<p:menuitem value="#{msg['label.menu.authorizationEvents']}" url="/listAuthorizationEvent" />
+				<p:menuitem value="#{msg['label.menu.profiles']}" url="/listProfile" />
+			</p:submenu>
+		</p:menubar>
+	</h:form>
+</ui:composition>

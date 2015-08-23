@@ -58,7 +58,7 @@ public class ShopCartController implements Serializable {
 		return null;
 	}
 
-	public String fecharPedidoNovoUsuario() {
+	public String fecharPedidoNovoUsuario() throws Exception {
 		client = clientService.add(client);
 		try {
 			return fecharPedido();

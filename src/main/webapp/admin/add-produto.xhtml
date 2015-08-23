@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/WEB-INF/admin-templates/default.xhtml">
+  <ui:define name="body">
+    <f:metadata>
+      <f:viewParam name="id" value="#{aboutController.idAbout}" />
+      <f:event listener="#{aboutController.load}" type="preRenderView" />
+    </f:metadata>
+    <h:form id="formAbout" acceptcharset="UTF-8" >
+      <p:messages autoUpdate="true" globalOnly="true" showSummary="false"
+        showDetail="true" />
+      <p:panel id="panel" header="#{msg['label.abouts']}"
+        styleClass="form-cadastro">
+        <p:focus for="txtTitle" />
+        <table width="95%">
+          <tr>
+            <td class="form-cadastro-label"><h:outputLabel
+                value="#{msg['label.id']}:" for="txtId"
+                rendered="#{aboutController.about.id != null}" /></td>
+            <td colspan="2">
+            <h:outputText value="#{aboutController.about.id}" id="txtId" rendered="#{aboutController.about.id != null}" /></td>
+          </tr>
+          <tr>
+            <td class="form-cadastro-label"><h:outputLabel value="#{msg['label.about.institution']}:" for="txtAbout" /></td>
+            <td><h:selectOneMenu id="txtAbout" value="#{aboutController.about.institution}" converter="GenericConverter">
+   				  <f:selectItems value="#{aboutController.institutions}" />
+				</h:selectOneMenu>
+            </td>
+            <td><p:message id="msgAbout" for="txtAbout" /></td>
+          </tr>
+          <tr>
+            <td class="form-cadastro-label"><h:outputLabel
+                value="#{msg['label.about.title']}:" for="txtTitle" /></td>
+            <td><p:inputText value="#{aboutController.about.title}" id="txtTitle" required="true" maxlength="50" /></td>
+            <td><p:message id="msgTitle" for="txtTitle" /></td>
+          </tr>
+             <tr>
+            <td class="form-cadastro-label"><h:outputLabel
+                value="#{msg['label.about.description']}:" for="txtDescription" /></td>
+            <td><p:editor value="#{aboutController.about.description}" id="txtDescription" required="true" maxlength="1500" width="400"/></td>
+            <td><p:message id="msgDescription" for="txtDescription" /></td>
+          </tr>
+          <tr>
+            <td class="form-cadastro-label"><h:outputLabel value="#{msg['label.about.approve']}:" for="txtApprove" /></td>
+            <td><h:selectOneMenu id="txtApprove" value="#{aboutController.about.approve}" converter="GenericConverter">
+   				  <f:selectItems value="#{aboutController.approves}" />
+				</h:selectOneMenu>
+            </td>
+            <td><p:message id="msgApprove" for="txtApprove" /></td>
+          </tr>
+        </table>
+     
+        <f:facet name="footer">
+          <p:commandButton action="#{aboutController.save}" ajax="false" id="btnSave"
+            value="#{msg['label.about.new']}" icon="ui-icon-circle-check" >
+              <f:ajax execute="panel" render="panel" />  
+            </p:commandButton>
+          <p:commandButton value="#{msg['label.cancel']}" immediate="true"
+            icon="ui-icon-cancel" action="#{aboutController.cancelar}" ajax="false " />
+        </f:facet>
+        
+        	<p:ajaxStatus style="width:64px;height:64px;position:fixed;right:5px;bottom:5px">  
+			<f:facet name="start">  
+			   <p:graphicImage value="/images/loading.gif" />  
+			</f:facet>  
+			  
+			<f:facet name="complete">  
+			   <h:outputText value="" />  
+			</f:facet>  
+		</p:ajaxStatus> 
+      </p:panel>
+      
+       
+    </h:form>
+  </ui:define>
+</ui:composition>
+</html>
