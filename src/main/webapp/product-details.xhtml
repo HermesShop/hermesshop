@@ -7,50 +7,158 @@
 <ui:composition template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="body">
 		<f:metadata>
-			<f:viewParam name="id" value="#{productController.id}" />
+			<f:viewParam name="id" value="#{productController.idProduct}" />
 			<f:event listener="#{productController.load}" type="preRenderView" />
 		</f:metadata>
 		<h2>#{msg['lista-de-produtos']}</h2>
 		<h:form id="formProdutos">
 			<p:growl autoUpdate="true" />
 
-				<div class="col-sm-4 col-lg-4 col-md-4">
-					<div class="thumbnail">
-						<!-- p:graphicImage value="#{imageController.image}"
-								rendered="${imageController.image != null}">
-								<f:param name="name" value="#{product.imageName}" />
-							</p:graphicImage-->
-						<img src="http://placehold.it/320x150" alt="" />
-						<div class="caption">
-							<h4 class="pull-right">
-								<h:outputText value="#{productController.product.prize}">
-									<f:convertNumber currencyCode="BRL" type="currency" />
-								</h:outputText>
-							</h4>
-							<h4>
-								<a href="#"><h:outputText value="#{productController.product.title}" /></a>
-							</h4>
-							<p>
-								<h:outputText value="#{productController.product.description}" escape="false" />
-								<br />
-								<p:commandButton icon="ui-icon-cart"
-									value="#{msg['adicionar-produto']}"
-									action="#{shopCartController.adicionarItem(productController.product)}"
-									process="formProdutos" style="margin-top: 15px;" />
-							</p>
+			<!-- start-content-->
+			<div class="content details-page">
+				<!---start-product-details-->
+				<div class="product-details">
+					<div class="wrap">
+						<ul class="product-head">
+							<li><a href="#">Home</a> <span>::</span></li>
+							<li class="active-page"><a href="#">Product Page</a></li>
+							<div class="clear"></div>
+						</ul>
+						<!--details-product-slider-->
+						<!-- Include the Etalage files -->
+						<!--//details-product-slider-->
+						<div class="details-left">
+							<div class="details-left-slider">
+								<ul id="etalage">
+									<li><a href="optionallink.html"> <img
+											class="etalage_thumb_image"
+											src="resources/images/product-slide/image1_thumb.jpg" />
+									</a></li>
+								</ul>
+							</div>
+							<div class="details-left-info">
+								<div class="details-right-head">
+									<h1>
+										<h:outputText value="#{productController.product.title}" />
+									</h1>
+									<ul class="pro-rate">
+										<li><a class="product-rate" href="#"> <label>
+											</label></a> <span> </span></li>
+										<li><a href="#">0 Review(s) Add Review</a></li>
+									</ul>
+									<p class="product-detail-info">
+										<h:outputText value="#{productController.product.description}" />
+									</p>
+									<a class="learn-more" href="#"><h3>MORE DETAILS</h3></a>
+									<div class="product-more-details">
+										<ul class="price-avl">
+											<li class="price"><span><h:outputText
+														value="#{productController.product.prize}">
+														<f:convertNumber currencyCode="BRL" type="currency" />
+													</h:outputText></span> <label><h:outputText
+														value="#{productController.product.prize}">
+														<f:convertNumber currencyCode="BRL" type="currency" />
+													</h:outputText></label></li>
+											<li class="stock"><i>In stock</i></li>
+											<div class="clear"></div>
+										</ul>
+										<ul class="prosuct-qty">
+											<span>Quantity:</span>
+											<select>
+												<option>1</option>
+												<option>2</option>
+												<option>3</option>
+												<option>4</option>
+												<option>5</option>
+												<option>6</option>
+											</select>
+										</ul>
+										<p:commandButton icon="ui-icon-cart" value="adicionar-produto"
+											action="#{shopCartController.adicionarItem(productController.product)}"
+											process="formProdutos" styleClass="styleGreen" />
+										<ul class="product-share">
+											<h3>Compartilhar</h3>
+											<ul>
+												<li><a class="share-face" href="#"><span> </span> </a></li>
+												<li><a class="share-twitter" href="#"><span>
+													</span> </a></li>
+												<li><a class="share-google" href="#"><span>
+													</span> </a></li>
+												<li><a class="share-rss" href="#"><span> </span> </a></li>
+												<div class="clear"></div>
+											</ul>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="clear"></div>
 						</div>
-						<div class="ratings">
-							<p class="pull-right">15 reviews</p>
-							<p>
-								<span class="glyphicon glyphicon-star"></span> <span
-									class="glyphicon glyphicon-star"></span> <span
-									class="glyphicon glyphicon-star"></span> <span
-									class="glyphicon glyphicon-star"></span> <span
-									class="glyphicon glyphicon-star"></span>
-							</p>
+						<div class="details-right">
+							<a href="#">SEE MORE</a>
 						</div>
+						<div class="clear"></div>
+					</div>
+
+					<div class="clear"></div>
+					<!--//vertical Tabs-->
+					<!--//product-rewies-->
+					<!---//End-product-details-->
+				</div>
+			</div>
+			<!-- start-bottom-grids-->
+			<div class="bottom-grids">
+				<div class="bottom-top-grids">
+					<div class="wrap">
+						<div class="bottom-top-grid">
+							<h4>GET HELP</h4>
+							<ul>
+								<li><a href="contact.html">Contact us</a></li>
+								<li><a href="#">Shopping</a></li>
+								<li><a href="#">NIKEiD</a></li>
+								<li><a href="#">Nike+</a></li>
+							</ul>
+						</div>
+						<div class="bottom-top-grid">
+							<h4>ORDERS</h4>
+							<ul>
+								<li><a href="#">Payment options</a></li>
+								<li><a href="#">Shipping and delivery</a></li>
+								<li><a href="#">Returns</a></li>
+							</ul>
+						</div>
+						<div class="bottom-top-grid last-bottom-top-grid">
+							<h4>REGISTER</h4>
+							<p>Create one account to manage everything you do with Nike,
+								from your shopping preferences to your Nike+ activity.</p>
+							<a class="learn-more" href="#">Learn more</a>
+						</div>
+						<div class="clear"></div>
 					</div>
 				</div>
+				<div class="bottom-bottom-grids">
+					<div class="wrap">
+						<div class="bottom-bottom-grid">
+							<h6>EMAIL SIGN UP</h6>
+							<p>Be the first to know about new products and special
+								offers.</p>
+							<a class="learn-more" href="#">Sign up now</a>
+						</div>
+						<div class="bottom-bottom-grid">
+							<h6>GIFT CARDS</h6>
+							<p>Give the gift that always fits.</p>
+							<a class="learn-more" href="#">View cards</a>
+						</div>
+						<div class="bottom-bottom-grid last-bottom-bottom-grid">
+							<h6>STORES NEAR YOU</h6>
+							<p>Locate a Nike retail store or authorized retailer.</p>
+							<a class="learn-more" href="#">Search</a>
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+			</div>
+			<!-- //End-bottom-grids-->
+			<!--- //End-content-->
 
 		</h:form>
 	</ui:define>

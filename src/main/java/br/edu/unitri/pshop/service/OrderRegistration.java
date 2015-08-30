@@ -42,19 +42,18 @@ public class OrderRegistration {
 		if (cliente == null) {
 			throw new ClientNotFoundException("Cliente não encontrado");
 		}
-		
-		
+
 		for (ItemOrder item : shopcarOrder.getItens()) {
 			System.out.println("_" + item.toString());
 		}
 		shopcarOrder.setDate(new Date(0));
 		shopcarOrder.setClient(cliente);
-		
+
 		if (shopcarOrder.getId() != null) {
 			em.merge(shopcarOrder);
 		} else {
 			em.persist(shopcarOrder);
-			
+
 			for (ItemOrder item : shopcarOrder.getItens()) {
 				Order order = new Order();
 				order.setId(shopcarOrder.getId());
@@ -63,5 +62,11 @@ public class OrderRegistration {
 		}
 
 		return shopcarOrder;
+	}
+
+	public void update(Order order) {
+		log.info("Registering " + order.getId());
+		em.merge(order);
+		orderEventSrc.fire(order);
 	}
 }

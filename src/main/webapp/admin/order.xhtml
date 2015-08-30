@@ -9,10 +9,10 @@
 	<ui:define name="body">
 		<p:growl id="messages" showDetail="true" autoUpdate="true"
 			showSummary="false" />
-		<h:form id="formListAboute">
-			<p:panel header="#{msg['label.abouts']}" styleClass="panel-listagem"
+		<h:form id="formList">
+			<p:panel header="#{msg['label.orders']}" styleClass="panel-listagem"
 				id="panelListagemAboute">
-				<p:dataTable id="tabeAboutes" value="#{adminController.orders}"
+				<p:dataTable id="tabeAboutes" value="#{orderController.orders}"
 					var="order" emptyMessage="#{msg['label.list.nofindrecord']}"
 					paginator="true" rows="10" paginatorPosition="bottom"
 					styleClass="table-listagem" rowIndexVar="var"
@@ -24,42 +24,45 @@
 						</f:facet>
 						<h:outputText value="#{order.id}" />
 					</p:column>
-					<p:column sortBy="#{order.client.name}" filterBy="#{order.client.name}"
-						filterEvent="enter" style="width:285px;">
+					<p:column sortBy="#{order.client.name}"
+						filterBy="#{order.client.name}" filterEvent="enter"
+						style="width:155px;">
 						<f:facet name="header">
-							<h:outputText value="#{msg['label.order.client.name']}" escape="false" />
+							<h:outputText value="#{msg['label.order.client.name']}"
+								escape="false" />
 						</f:facet>
 						<h:outputText value="#{order.client.name}" />
 					</p:column>
-					<p:column sortBy="#{order.date}" filterBy="#{order.date}"
-						filterEvent="enter" style="width:285px;">
+					<p:column style="width:50px;">
+						<p:button title="#{msg['label.detais']}" outcome="order-details"
+							icon="ui-icon-pencil" id="btnDetails">
+							<f:param name="id" value="#{order.id}" />
+						</p:button>
+					</p:column>
+					<p:column style="width:100px;">
 						<f:facet name="header">
 							<h:outputText value="#{msg['label.order.date']}" escape="false" />
 						</f:facet>
-						<h:outputText value="#{order.date}" />
+						<h:outputText value="#{order.date}">
+							<f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+						</h:outputText>
 					</p:column>
-					<p:column sortBy="#{order.totalValue}" filterBy="#{order.totalValue}"
-						filterEvent="enter" style="width:285px;">
+					<p:column style="width:35px;">
 						<f:facet name="header">
-							<h:outputText value="#{msg['label.order.totalValue']}" escape="false" />
+							<h:outputText value="#{msg['label.order.totalValue']}"
+								escape="false" />
 						</f:facet>
-						<h:outputText value="#{order.totalValue}" />
-					</p:column>
-					<p:column style="text-align: center;width:50px;">
-						<f:facet name="header">
-							<h:outputText value="#{msg['label.update']}" />
-						</f:facet>
-					</p:column>
-					<p:column style="text-align: center;width:50px;">
-						<f:facet name="header">
-							<h:outputText value="#{msg['label.remove']}" />
-						</f:facet>
+						<h:outputText value="#{order.totalValue}">
+							<f:convertNumber pattern="#0.00" />
+						</h:outputText>
 					</p:column>
 				</p:dataTable>
 				<p:spacer style="width:100%; height: 10px;" />
-			</p:panel>
 
+			</p:panel>
+			
 		</h:form>
+
 	</ui:define>
 </ui:composition>
 </html>

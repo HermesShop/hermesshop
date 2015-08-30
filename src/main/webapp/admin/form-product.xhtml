@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/WEB-INF/admin-templates/default.xhtml">
+	<ui:define name="body">
+		<f:metadata>
+			<f:viewParam name="id" value="#{productController.idProduct}" />
+			<f:event listener="#{productController.load}" type="preRenderView" />
+		</f:metadata>
+		<h:form id="formAbout" acceptcharset="UTF-8" enctype="multipart/form-data">
+			<p:messages id="messages" autoUpdate="true" globalOnly="true"
+				showSummary="false" showDetail="true" />
+			<p:panel id="panel" header="#{msg['label.products']}"
+				styleClass="form-cadastro">
+				<p:focus for="txtTitle" />
+				<table width="95%">
+					<tr>
+						<td class="form-cadastro-label"><h:outputLabel value="id:"
+								for="txtId" rendered="#{productController.product.id != null}" /></td>
+						<td colspan="2"><h:outputText
+								value="#{productController.product.id}" id="txtId"
+								rendered="#{productController.product.id != null}" /></td>
+					</tr>
+					<tr>
+						<td class="form-cadastro-label"><h:outputLabel
+								value="#{msg['label.product.category']}:" for="txtCategory" /></td>
+						<td><p:outputLabel value="Fotos do Produto" /> <p:fileUpload
+								sizeLimit="204800" auto="true" widgetVar="uploader"
+								label="Procurar..."
+								fileUploadListener="#{productController.handleFileUpload}"
+								allowTypes="*.jpg;*.png;*.gif;" description="Images"
+								update="imagem" multiple="false" customUI="true" /> <p:graphicImage
+								value="#{productController.imagem}" id="imagem" cache="false" />
+						</td>
+					</tr>
+					<tr>
+						<td class="form-cadastro-label"><h:outputLabel
+								value="#{msg['label.product.category']}:" for="txtCategory" /></td>
+						<td><h:selectOneMenu id="txtCategory"
+								value="#{productController.product.category}"
+								converter="converter.GenericConverter">
+								<f:selectItems value="#{productController.categorys}" />
+								<!--  // receita ou despesa. -->
+							</h:selectOneMenu></td>
+						<td><p:message id="msgCategory" for="txtCategory" /></td>
+					</tr>
+					<tr>
+						<td class="form-cadastro-label"><h:outputLabel
+								value="titulo:" for="txtTitle" /></td>
+						<td><p:inputText value="#{productController.product.title}"
+								id="txtTitle" required="true" maxlength="50" /></td>
+						<td><p:message id="msgTitle" for="txtTitle" /></td>
+					</tr>
+					<tr>
+						<td class="form-cadastro-label"><h:outputLabel
+								value="descrião:" for="txtDescription" /></td>
+						<td><p:inputText
+								value="#{productController.product.description}"
+								id="txtDescription" required="true" maxlength="1500" width="400" /></td>
+						<td><p:message id="msgDescription" for="txtDescription" /></td>
+					</tr>
+					<tr>
+						<td class="form-cadastro-label"><h:outputLabel value="Preço:"
+								for="txtPrize" /></td>
+						<td><p:inputText value="#{productController.product.prize}"
+								id="txtPrize" required="true" maxlength="1500" width="400" /></td>
+						<td><p:message id="msgPrize" for="txtPrize" /></td>
+					</tr>
+					<tr>
+						<td class="form-cadastro-label"><h:outputLabel
+								value="imagem:" for="txtImageName" /></td>
+						<td><p:inputText
+								value="#{productController.product.imageName}" id="txtImageName"
+								required="true" maxlength="1500" width="400" /></td>
+						<td><p:message id="msgImageName" for="txtImageName" /></td>
+					</tr>
+
+				</table>
+
+				<f:facet name="footer">
+					<p:commandButton action="#{productController.save}" ajax="false"
+						id="btnSave" value="#{msg['label.product.new']}"
+						icon="ui-icon-circle-check">
+						<f:ajax execute="panel" render="panel" />
+					</p:commandButton>
+					<p:commandButton value="#{msg['label.cancel']}" immediate="true"
+						icon="ui-icon-cancel" action="#{productController.cancelar}"
+						ajax="false " />
+				</f:facet>
+
+				<p:ajaxStatus
+					style="width:64px;height:64px;position:fixed;right:5px;bottom:5px">
+					<f:facet name="start">
+						<p:graphicImage value="/images/loading.gif" />
+					</f:facet>
+
+					<f:facet name="complete">
+						<h:outputText value="" />
+					</f:facet>
+				</p:ajaxStatus>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

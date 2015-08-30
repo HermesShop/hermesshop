@@ -12,52 +12,59 @@
 		<h:form id="formListAboute">
 			<p:panel header="#{msg['label.abouts']}" styleClass="panel-listagem"
 				id="panelListagemAboute">
-				<p:dataTable id="tabeAboutes" value="#{adminController.orders}"
-					var="order" emptyMessage="#{msg['label.list.nofindrecord']}"
-					paginator="true" rows="10" paginatorPosition="bottom"
-					styleClass="table-listagem" rowIndexVar="var"
-					firstPageLinkLabel="Primeira" previousPageLinkLabel="Anterior"
-					nextPageLinkLabel="Proxima" lastPageLinkLabel="ultima">
-					<p:column sortBy="#{order.id}" style="width:50px;">
+				<p:button value="#{msg['label.new']}" outcome="form-category"
+					icon="ui-icon-circle-plus" id="btnAddTop" />
+				<p:dataTable id="tabeAboutes"
+					value="#{categoryController.categorys}" var="category"
+					emptyMessage="#{msg['label.list.nofindrecord']}" paginator="true"
+					rows="10" paginatorPosition="bottom" styleClass="table-listagem"
+					rowIndexVar="var" firstPageLinkLabel="Primeira"
+					previousPageLinkLabel="Anterior" nextPageLinkLabel="Proxima"
+					lastPageLinkLabel="ultima">
+					<p:column sortBy="#{category.id}" style="width:50px;">
 						<f:facet name="header">
 							<h:outputText value="#{msg['label.id']}" />
 						</f:facet>
-						<h:outputText value="#{order.id}" />
+						<h:outputText value="#{category.id}" />
 					</p:column>
-					<p:column sortBy="#{order.client.name}" filterBy="#{order.client.name}"
+					<p:column sortBy="#{category.name}" filterBy="#{category.name}"
 						filterEvent="enter" style="width:285px;">
 						<f:facet name="header">
-							<h:outputText value="#{msg['label.order.client.name']}" escape="false" />
+							<h:outputText value="#{msg['label.category.name']}"
+								escape="false" />
 						</f:facet>
-						<h:outputText value="#{order.client.name}" />
-					</p:column>
-					<p:column sortBy="#{order.date}" filterBy="#{order.date}"
-						filterEvent="enter" style="width:285px;">
-						<f:facet name="header">
-							<h:outputText value="#{msg['label.order.date']}" escape="false" />
-						</f:facet>
-						<h:outputText value="#{order.date}" />
-					</p:column>
-					<p:column sortBy="#{order.totalValue}" filterBy="#{order.totalValue}"
-						filterEvent="enter" style="width:285px;">
-						<f:facet name="header">
-							<h:outputText value="#{msg['label.order.totalValue']}" escape="false" />
-						</f:facet>
-						<h:outputText value="#{order.totalValue}" />
+						<h:outputText value="#{category.name}" />
 					</p:column>
 					<p:column style="text-align: center;width:50px;">
 						<f:facet name="header">
 							<h:outputText value="#{msg['label.update']}" />
 						</f:facet>
+						<p:button title="#{msg['label.update']}" outcome="form-category"
+							icon="ui-icon-pencil" id="btnUpdate">
+							<f:param name="id" value="#{category.id}" />
+						</p:button>
 					</p:column>
 					<p:column style="text-align: center;width:50px;">
 						<f:facet name="header">
 							<h:outputText value="#{msg['label.remove']}" />
 						</f:facet>
+						<p:commandButton tile="#{msg['label.remove']}"
+							onclick="confirmation.show();" icon="ui-icon-trash"
+							id="btnRemove">
+							<f:setPropertyActionListener
+								target="#{categoryController.category}" value="#{category}" />
+						</p:commandButton>
 					</p:column>
 				</p:dataTable>
 				<p:spacer style="width:100%; height: 10px;" />
 			</p:panel>
+			<p:confirmDialog id="deleteDialog"
+				message="#{msg['label.confirme-exclude']}" widgetVar="confirmation">
+				<p:commandButton id="btnConfirm" value="#{msg['label.yes']}"
+					action="#{categoryController.remove}" ajax="false" />
+				<p:commandButton id="btnClose" value="#{msg['label.no']}"
+					onclick="confirmation.hide()" />
+			</p:confirmDialog>
 
 		</h:form>
 	</ui:define>

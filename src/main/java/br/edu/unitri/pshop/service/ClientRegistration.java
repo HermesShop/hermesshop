@@ -31,4 +31,13 @@ public class ClientRegistration {
 		return client;
 	}
 
+	public void remove(Client client) {
+		em.remove(client);
+	}
+
+	public void update(Client client) {
+		log.info("Registering " + client.getName());
+		em.merge(client);
+		clientEventSrc.fire(client);
+	}
 }

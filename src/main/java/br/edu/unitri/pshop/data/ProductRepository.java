@@ -63,4 +63,15 @@ public class ProductRepository {
         criteria.select(product).orderBy(cb.asc(product.get("description")));
         return em.createQuery(criteria).getResultList();
     }
+    
+    public List<Product> findByCategoryId(Long id) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Product> criteria = cb.createQuery(Product.class);
+        Root<Product> product = criteria.from(Product.class);
+        // Swap criteria statements if you would like to try out type-safe criteria queries, a new
+        // feature in JPA 2.0
+        // criteria.select(itemOrder).where(cb.equal(itemOrder.get(ItemOrder_.name), email));
+        criteria.select(product).where(cb.equal(product.get("category").get("id"), id));
+        return em.createQuery(criteria).getResultList();
+    }
 }

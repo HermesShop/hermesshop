@@ -7,9 +7,23 @@
 <ui:composition template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="body">
 		<h3>
+			Olá,
+			<h:outputText
+				value="#{shopCartController.shopcarOrderGerado.client.name}" />
+			, Obrigado por sua compra. <br /> Seu pedido é:
 			<h:outputFormat value="#{msg['pedido-gerado-com-sucesso']} {0}">
-				<f:param value="#{shopCartController.idPedidoGerado}" />
+				<f:param value="#{shopCartController.shopcarOrderGerado.id}" />
 			</h:outputFormat>
+			<br />
+			<br />
+			Produtos Adiquiridos:
+			<p:dataList
+				value="#{orderController.selectItemOrder(shopCartController.shopcarOrderGerado.id)}"
+				var="item" type="ordered">
+				  #{item.product.description} - Quantidade: #{item.quantity} - Valor Unitário: #{item.unitPrize} 
+			</p:dataList>
+
+
 			<br />
 			<h:link outcome="index" styleClass="link" value="Ver mais.." />
 		</h3>

@@ -53,15 +53,15 @@ public class ItemOrderRepository {
         return em.createQuery(criteria).getSingleResult();
     }
     
-    public ItemOrder findByOrderId(Long id) {
+    public List<ItemOrder> findByOrderId(Long id) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<ItemOrder> criteria = cb.createQuery(ItemOrder.class);
         Root<ItemOrder> itemOrder = criteria.from(ItemOrder.class);
         // Swap criteria statements if you would like to try out type-safe criteria queries, a new
         // feature in JPA 2.0
         // criteria.select(itemOrder).where(cb.equal(itemOrder.get(ItemOrder_.name), email));
-        criteria.select(itemOrder).where(cb.equal(itemOrder.get("order.id"), id));
-        return em.createQuery(criteria).getSingleResult();
+        criteria.select(itemOrder).where(cb.equal(itemOrder.get("order").get("id"), id));
+        return em.createQuery(criteria).getResultList();
     }
 
     public List<ItemOrder> findAllItemOrderedByDescription() {

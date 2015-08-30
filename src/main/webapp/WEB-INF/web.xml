@@ -15,11 +15,35 @@
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
 	</servlet>
+
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.jsf</url-pattern>
 	</servlet-mapping>
+
+	<context-param>
+		<param-name>com.sun.faces.enableViewStateIdRendering</param-name>
+		<param-value>false</param-value>
+	</context-param>
+
+	<context-param>
+		<description>State saving method: 'client' or 'server' (=default). See JSF Specification 2.5.2</description>
+		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+		<param-value>server</param-value>
+	</context-param>
+
+	<filter>
+		<filter-name>PrimeFaces FileUpload Filter</filter-name>
+		<filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>PrimeFaces FileUpload Filter</filter-name>
+		<servlet-name>Faces Servlet</servlet-name>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
 
 	<context-param>
 		<param-name>com.sun.faces.writeStateAtFormEnd</param-name>
@@ -34,5 +58,64 @@
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
-	
+	<!-- Protected area definition -->
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Restricted
+				Area - ADMIN Only
+			</web-resource-name>
+			<url-pattern>/admin/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>ADMIN</role-name>
+		</auth-constraint>
+		<user-data-constraint>
+			<transport-guarantee>NONE</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Restricted Area - USER and ADMIN</web-resource-name>
+			<url-pattern>/admin/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>USER</role-name>
+			<role-name>ADMIN</role-name>
+		</auth-constraint>
+		<user-data-constraint>
+			<transport-guarantee>NONE</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Public</web-resource-name>
+			<description>Matches a few special pages.</description>
+			<url-pattern>/index.xhtml</url-pattern>
+			<url-pattern>/index.jsf</url-pattern>
+			<url-pattern>/resources/*</url-pattern>
+		</web-resource-collection>
+		<!-- No auth-constraint means everybody has access! -->
+	</security-constraint>
+	<!-- Login page -->
+	<login-config>
+		<auth-method>FORM</auth-method>
+		<form-login-config>
+			<form-login-page>/public/login.xhtml</form-login-page>
+			<form-error-page>/public/loginError.xhtml</form-error-page>
+		</form-login-config>
+	</login-config>
+
+	<error-page>
+		<error-code>403</error-code>
+		<location>/erro403.xhtml</location>
+	</error-page>
+
+	<!-- System roles -->
+	<security-role>
+		<role-name>ADMIN</role-name>
+	</security-role>
+	<security-role>
+		<role-name>USER</role-name>
+	</security-role>
 </web-app>

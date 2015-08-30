@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Edmin</title>
+	<link href="../resources/login/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="../resources/login/font-awesome/css/font-awesome.css"
+		rel="stylesheet" />
+
+	<!-- SB Admin CSS - Include with every page -->
+	<link href="../resources/login/css/sb-admin.css" rel="stylesheet" />
+
+	<!-- Core Scripts - Include with every page -->
+	<script
+		src="../resources/login/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+	<!-- SB Admin Scripts - Include with every page -->
+	<script src="../resources/login/js/sb-admin.js"></script>
+
+	<link type="text/css"
+		href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600'
+		rel='stylesheet' />
+
+</h:head>
+<h:body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4 col-md-offset-4">
+				<div class="login-panel panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Please Sign In</h3>
+					</div>
+					<div class="panel-body">
+						<form method="post" action="j_security_check"
+							class="form-horizontal well">
+							<fieldset>
+								<legend>Login</legend>
+								<div class="control-group">
+									<div class="controls">
+										<input type="text" id="j_username" name="j_username"
+											placeholder="Digite seu @seuemail.com" class="form-control" />
+									</div>
+								</div>
+
+								<div class="control-group">
+									<div class="controls">
+										<input type="password" id="j_password" name="j_password"
+											placeholder="Digite sua senha" class="form-control" />
+
+										<!-- Help-block example -->
+										<!-- <span class="help-block">Example block-level help text here.</span> -->
+									</div>
+								</div>
+								<br />
+								<div class="control-group">
+									<div class="controls">
+
+										<button type="submit" id="submit"
+											class="btn btn-primary button-loading"
+											data-loading-text="Loading...">Login</button>
+
+										<button type="button" class="btn btn-secondary button-loading"
+											data-loading-text="Loading...">Reset Password</button>
+
+									</div>
+								</div>
+							</fieldset>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</h:body>
+</html>

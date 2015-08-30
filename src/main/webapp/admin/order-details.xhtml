@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/WEB-INF/admin-templates/default.xhtml">
+	<ui:define name="body">
+		<f:metadata>
+			<f:viewParam name="id" value="#{orderController.id}" />
+			<f:event listener="#{orderController.load}" type="preRenderView" />
+		</f:metadata>
+		<h2>#{msg['lista-de-produtos']}</h2>
+		<h:form id="formProdutos">
+			<p:growl autoUpdate="true" />
+			<p:panel id="basic" header="Detalhes do pedido" footer="Details"
+				style="margin-bottom:20px">
+				<h:panelGrid columns="2">
+						Numero Pedido:
+						<h:outputText value="#{orderController.order.id}" />
+					 Comprado por:
+						<h:outputText value="#{orderController.order.client.name}" />
+					 Total da compra: 
+						<h:outputText value="#{orderController.order.totalValue}" />
+
+				</h:panelGrid>
+			</p:panel>
+
+			<p:dataList
+				value="#{orderController.selectItemOrder(orderController.order.id)}"
+				var="item" type="ordered">
+				<f:facet name="header">
+			            Produtos Comprados
+			        </f:facet>
+			        #{item.product.description}<br /> Quantidade: #{item.quantity} <br /> Valor Unitário: #{item.unitPrize} <br /> == <br />
+				<br />
+			</p:dataList>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

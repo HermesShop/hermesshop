@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/WEB-INF/admin-templates/default.xhtml">
+	<ui:define name="body">
+		<f:metadata>
+			<f:viewParam name="id" value="#{clientController.idClient}" />
+			<f:event listener="#{clientController.load}" type="preRenderView" />
+		</f:metadata>
+		<h:form id="formAbout" acceptcharset="UTF-8">
+			<p:messages autoUpdate="true" globalOnly="true" showSummary="false"
+				showDetail="true" />
+			<p:panel id="panel" header="#{msg['label.clients']}"
+				styleClass="form-cadastro">
+				<p:focus for="txtName" />
+				<table width="95%">
+					<tr>
+						<td class="form-cadastro-label"><h:outputLabel value="id:"
+								for="txtId" rendered="#{clientController.client.id != null}" /></td>
+						<td colspan="2"><h:outputText
+								value="#{clientController.client.id}" id="txtId"
+								rendered="#{clientController.client.id != null}" /></td>
+					</tr>
+					<tr>
+						<td class="form-cadastro-label"><h:outputLabel
+								value="Name:" for="txtName" /></td>
+						<td><p:inputText value="#{clientController.client.name}"
+								id="txtName" required="true" maxlength="50" /></td>
+						<td><p:message id="msgName" for="txtName" /></td>
+					</tr>
+					<tr>
+						<td class="form-cadastro-label"><h:outputLabel value="email"
+								for="txtEmail" /></td>
+						<td><p:inputText value="#{clientController.client.email}"
+								id="txtEmail" required="true" maxlength="50" /></td>
+						<td><p:message id="msgEmail" for="txtEmail" /></td>
+					</tr>
+					<tr>
+						<td class="form-cadastro-label"><h:outputLabel value="password"
+								for="txtPassword" /></td>
+						<td><p:inputText value="#{clientController.client.password}"
+								id="txtPassword" required="true" maxlength="50" /></td>
+						<td><p:message id="msgPassword" for="txtPassword" /></td>
+					</tr>
+				</table>
+
+				<f:facet name="footer">
+					<p:commandButton action="#{clientController.save}" ajax="false"
+						id="btnSave" value="#{msg['label.client.new']}"
+						icon="ui-icon-circle-check">
+						<f:ajax execute="panel" render="panel" />
+					</p:commandButton>
+					<p:commandButton value="#{msg['label.cancel']}" immediate="true"
+						icon="ui-icon-cancel" action="#{clientController.cancelar}"
+						ajax="false " />
+				</f:facet>
+
+				<p:ajaxStatus
+					style="width:64px;height:64px;position:fixed;right:5px;bottom:5px">
+					<f:facet name="start">
+						<p:graphicImage value="/images/loading.gif" />
+					</f:facet>
+
+					<f:facet name="complete">
+						<h:outputText value="" />
+					</f:facet>
+				</p:ajaxStatus>
+			</p:panel>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,6 @@
+<jboss-web>
+	<context-root>pshop</context-root>
+	
+	<!-- Realm that will be used -->
+	<security-domain>java:/jaas/HermesshopRealm</security-domain>
+</jboss-web>

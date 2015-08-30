@@ -6,50 +6,60 @@
 	xmlns:p="http://primefaces.org/ui">
 <ui:composition template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="body">
+		<f:metadata>
+			<f:viewParam name="id" value="#{shopController.idProduct}" />
+			<f:event listener="#{shopController.loadProducts}" type="preRenderView" />
+		</f:metadata>
 		<h2>#{msg['lista-de-produtos']}</h2>
 		<h:form id="formProdutos">
-			<p:growl autoUpdate="true" />
-			<p:dataGrid id="listaProdutos" value="#{productController.products}"
-				var="product" styleClass="lista-conteudo" columns="1">
-
-				<div class="col-sm-4 col-lg-4 col-md-4">
-					<div class="thumbnail">
-						<!-- p:graphicImage value="#{imageController.image}"
-							rendered="${imageController.image != null}">
-							<f:param name="name" value="#{product.imageName}" />
-						</p:graphicImage-->
-						<img src="http://placehold.it/320x150" alt="" />
-						<div class="caption">
-							<h4 class="pull-right">
-								<h:outputText value="#{produto.prize}">
-									<f:convertNumber currencyCode="BRL" type="currency" />
-								</h:outputText>
-							</h4>
-							<h4>
-								<a href="#"><h:outputText value="#{product.title}" /></a>
-							</h4>
-							<p>
-								<h:outputText value="#{product.description}" escape="false" />
-								<br />
-								<p:button title="#{msg['label.detais']}" outcome="product-details"
-									icon="ui-icon-pencil" id="btnUpdate">
-									<f:param name="id" value="#{product.id}" />
-								</p:button>
-							</p>
+			<p:growl id="messages" autoUpdate="true" />
+			<div class="product-grids">
+				<ui:repeat var="product" value="#{shopController.products}"
+					varStatus="status">
+					<h:form id="formProduct">
+						<p:growl id="messages" autoUpdate="true" />
+						<div
+							class="#{status.index > 0 and status.index % 2 == 0 ? 'product-grid fade last-grid' : 'product-grid fade'}">
+							<div class="product-grid-head">
+								<ul class="grid-social">
+									<li><a class="facebook" href="#"><span> </span></a></li>
+									<li><a class="twitter" href="#"><span> </span></a></li>
+									<li><a class="googlep" href="#"><span> </span></a></li>
+								</ul>
+								<div class="block">
+									<div class="starbox small ghosting"></div>
+									<span>(#{product.id}) <p:rating
+											value="#{shopController.rating}" stars="5" cancel="false"
+											onRate="alert('You rated ' + value)" />
+									</span>
+								</div>
+							</div>
+							<div class="product-pic">
+								<a href="#"><img src="resources/images/product6.jpg"
+									title="product-name" /></a>
+								<p>
+									<a href="#"><small>#{product.title}</small></a> <span>#{product.description}</span>
+								</p>
+							</div>
+							<div class="product-info">
+								<div class="product-info-cust">
+									<p:link outcome="product-details" value="Detalhes">
+										<f:param name="id" value="#{product.id}" />
+									</p:link>
+								</div>
+								<div class="product-info-price">
+									<a href="details.html">R$ #{product.prize}</a>
+								</div>
+								<div class="clear"></div>
+							</div>
+							<div class="more-product-info">
+								<span> </span>
+							</div>
 						</div>
-						<div class="ratings">
-							<p class="pull-right">15 reviews</p>
-							<p>
-								<span class="glyphicon glyphicon-star"></span> <span
-									class="glyphicon glyphicon-star"></span> <span
-									class="glyphicon glyphicon-star"></span> <span
-									class="glyphicon glyphicon-star"></span> <span
-									class="glyphicon glyphicon-star"></span>
-							</p>
-						</div>
-					</div>
-				</div>
-			</p:dataGrid>
+					</h:form>
+				</ui:repeat>
+				<div class="clear"></div>
+			</div>
 		</h:form>
 	</ui:define>
 </ui:composition>

@@ -7,6 +7,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.edu.unitri.pshop.data.OrderRepository;
 import br.edu.unitri.pshop.exception.ClientNotFoundException;
 import br.edu.unitri.pshop.model.Client;
 import br.edu.unitri.pshop.model.ItemOrder;
@@ -21,15 +22,20 @@ public class ShopCartController implements Serializable {
 	private static final long serialVersionUID = 1172514592649335124L;
 
 	private Order shopcarOrder;
+	private Order shopcarOrderGerado;
 	private Long idPedidoGerado;
 	private Client client;
 	private Product removeProduct;
-	
+
 	@Inject
 	private ClientRegistration clientService;
+
 	@Inject
 	private OrderRegistration orderService;
-	
+
+	@Inject
+	private OrderRepository orderRepository;
+
 	@PostConstruct
 	public void init() {
 		shopcarOrder = new Order();
@@ -69,10 +75,11 @@ public class ShopCartController implements Serializable {
 	}
 
 	private String fecharPedido() throws ClientNotFoundException {
-		shopcarOrder = orderService.addOrder(shopcarOrder,
-				client.getEmail(), client.getPassword());
+		shopcarOrder = orderService.addOrder(shopcarOrder, client.getEmail(),
+				client.getPassword());
 		idPedidoGerado = shopcarOrder.getId();
-		init();
+		Order order = orderRepository.findById(idPedidoGerado);
+		setShopcarOrderGerado(order);
 		return "pedidoFechado?faces-redirect=true";
 	}
 
@@ -104,4 +111,13 @@ public class ShopCartController implements Serializable {
 	public void setProdutoRemover(Product removeProduct) {
 		this.removeProduct = removeProduct;
 	}
+
+	public Order getShopcarOrderGerado() {
+		return shopcarOrderGerado;
+	}
+
+	public void setShopcarOrderGerado(Order shopcarOrderGerado) {
+		this.shopcarOrderGerado = shopcarOrderGerado;
+	}
+
 }
