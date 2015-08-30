@@ -1,0 +1,15 @@
+<security-domains>
+	<security-domain name="HermesshopRealm" cache-type="default">
+		<authentication>
+			<login-module code="org.jboss.security.auth.spi.DatabaseServerLoginModule"
+				flag="required">
+				<module-option name="dsJndiName" value="java:jboss/datasources/pshopDS" />
+				<module-option name="principalsQuery"
+					value="select password from st_user where username=?" />
+				<module-option name="rolesQuery"
+					value="select pr.acronym, 'Roles' from st_user u, st_profile pr where u.profile_id = pr.id and u.username=?" />
+				<module-option name="unauthenticatedIdentity" value="guest" />
+			</login-module>
+		</authentication>
+	</security-domain>
+</security-domains>
